@@ -16,11 +16,11 @@ id,id,distance
 ## Input Example
 ```txt
 3
-C1;santa casa;pindamonhangaba;rim,coracao
-C2;hospital da vida;sao jose dos campos;0
-D1;jose;taubate;figado
+1;C1;santa casa;pindamonhangaba;rim,coracao
+2;C2;hospital da vida;sao jose dos campos;
+3;D1;jose;taubate;figado
 3
-C1,C2,60
-C1,D1,15
-C2,D1,45
+1,2,60
+1,3,15
+2,3,45
 ```
