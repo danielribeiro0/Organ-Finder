@@ -59,6 +59,9 @@ edge_v: .space 400
 .globl edge_wheight
 edge_w: .space 400
 
+.globl ent_type
+ent_type: .space 8 #tipo da distribuição, D se for doador direto ou C se for centro de distribuição
+
 buffer: .space 4098
 filename: .asciiz "dados.txt"
 
@@ -96,7 +99,38 @@ readfile:
 	la $s2, buffer #s2 -> inicio do texto
 	
 #-----------------------------------
+	#ler numero de linhas
+	jal parse_int_line
+	sw $v0, num_entities
+
+
+
+
+
+#--------------------------------------
+#funções:
+#parse_int_line
+#lê ate \n e retorna número encontrado
+parse_int_line:
+	li $t3, 10
+	move $t2, $t3
+	jal parse_int_until_delim
+	jr $ra
 	
-		
+
+#parse_int_until_delim
+#lê numero até delimitador, ",", ";", etc
+parse_int_until_delim:
+	li $t7, 0
+	
+#parse_int_until_delim
+#lê string até delimitador, ",", ";", etc
+parse_string_until_delim:
+	move $t9, $s2
+
+	
+
+
+
 
 
