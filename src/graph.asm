@@ -6,7 +6,7 @@
 .data
 
 .globl adj_matrix
-adj_matrix: .space 10000    # MAX_ENTITIES * MAX_ENTITIES * 4 BYTES (50 * 50 * 4)
+adj_matrix: .space 10000    # 50 * 50 * 4 (MAX_ENTITIES * MAX_ENTITIES * 4 BYTES)
 
 .text
 .globl add_edge
@@ -39,9 +39,9 @@ init_graph:
     # 1. ZERA MATRIZ DE ADJACÊNCIA
     ########################################
 
-    la   $t0, adj_matrix     # ponteiro base
-    li   $t1, MAX_ENTITIES*MAX_ENTITIES  # total = 50*50 = 2500 words
-    li   $t2, 0              # valor a gravar
+    la   $t0, adj_matrix    # ponteiro base
+    li   $t1, 2500          # total = 50*50 = 2500 words (MAX_ENTITIES * MAX_ENTITIES)
+    li   $t2, 0             # valor a gravar
 
 clear_loop:
     beq  $t1, $zero, clear_done
