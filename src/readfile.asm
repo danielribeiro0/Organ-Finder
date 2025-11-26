@@ -111,6 +111,7 @@ parse_ent_loop:
     add  $t2, $t2, $t1      # i * 1 (array de bytes)
     move $a0, $t2           # dest
     li   $a1, 59            # delimitador: ';'
+    li   $a2, 1             # max len: 1
     jal  parse_string
     
     # 3. Nome (string) ;
@@ -119,6 +120,7 @@ parse_ent_loop:
     add  $t2, $t2, $t3
     move $a0, $t2           # dest
     li   $a1, 59            # delimitador: ';'
+    li   $a2, 63            # max len: 63 (+1 null)
     jal  parse_string
     
     # 4. Cidade (string) ;
@@ -127,6 +129,7 @@ parse_ent_loop:
     add  $t2, $t2, $t3
     move $a0, $t2           # dest
     li   $a1, 59            # delimitador: ';'
+    li   $a2, 63            # max len: 63 (+1 null)
     jal  parse_string
     
     # 5. Órgãos (string) \n
@@ -135,6 +138,7 @@ parse_ent_loop:
     add  $t2, $t2, $t3
     move $a0, $t2           # dest
     li   $a1, 10            # delimitador: nova linha
+    li   $a2, 127           # max len: 127 (+1 null)
     jal  parse_string
     
     addi $t1, $t1, 1
@@ -236,12 +240,13 @@ pi_done:
 
 # -----------------------------------------------------------------------------
 # Auxiliar: parse_string
-# Entradas: $s2 (ptr buffer), $a0 (ptr dest), $a1 (char delimitador)
+# Entradas: $s2 (ptr buffer), $a0 (ptr dest), $a1 (char delimitador), $a2 (max len)
 # Saídas: atualiza $s2, escreve em $a0
 # -----------------------------------------------------------------------------
 parse_string:
     move $t6, $a0           # ptr dest
-    
+    li   $t7, 0             # contador de chars escritos
+
 ps_loop:
     lb   $t8, 0($s2)        # carrega char
     addi $s2, $s2, 1        # avança ptr buffer
@@ -256,10 +261,18 @@ ps_loop:
     # Verifica null
     beqz $t8, ps_done
     
+    # Verifica limite de buffer
+    bge  $t7, $a2, ps_skip_store # Se atingiu limite, não salva, mas continua consumindo até delimitador
+    
     # Armazena char
     sb   $t8, 0($t6)
     addi $t6, $t6, 1
+    addi $t7, $t7, 1
     
+    j    ps_loop
+
+ps_skip_store:
+    # Opcional: loop apenas para consumir até o delimitador se estourou o buffer
     j    ps_loop
     
 ps_done:
