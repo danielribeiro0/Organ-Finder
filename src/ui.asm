@@ -57,6 +57,27 @@ print_menu:
 get_user_choice:
     li $v0, 5
     syscall
+    
+    # Se leu 0, pode ser erro de input (char não numérico).
+    # Vamos limpar o buffer até o \n para evitar loop infinito.
+    # Nota: 0 também pode ser uma escolha válida se o menu tiver opção 0, 
+    # mas aqui as opções são 1-4.
+    bnez $v0, guc_done
+    
+    # Limpa buffer (consome até \n)
+    move $t0, $v0       # salva o 0 (se for válido, retorna 0 e main trata como inválido)
+    
+guc_clean_loop:
+    li $v0, 12          # read_char
+    syscall
+    li $t1, 10          # \n
+    beq $v0, $t1, guc_restored
+    j guc_clean_loop
+    
+guc_restored:
+    move $v0, $t0       # restaura 0
+
+guc_done:
     jr $ra
 
 # -----------------------------------------------------------------------------

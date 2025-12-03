@@ -3,8 +3,12 @@
 
 # Inclui outros módulos
 # Nota: graph.asm inclui readfile.asm
+.text
+    j main
+
 .include "graph.asm"
 .include "ui.asm"
+.include "search.asm"
 
 .text
 .globl main
@@ -55,7 +59,7 @@ do_visualize:
     j main_loop
 
 do_search:
-    jal print_search_stub
+    jal buscar_orgao_proximo
     j main_loop
 
 do_exit:

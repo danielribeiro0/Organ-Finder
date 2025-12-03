@@ -1,33 +1,5 @@
 .include "readfile.asm"
 
-.eqv MAX_ENTITIES 50
-.eqv MAX_EDGES_PER_NODE 50
-
-.data
-
-.globl adj_matrix
-adj_matrix: .space 10000    # 50 * 50 * 4 (MAX_ENTITIES * MAX_ENTITIES * 4 BYTES)
-
-.text
-.globl add_edge
-.globl init_graph
-
-add_edge:
-    ############ Cálculo do endereço [u][v] ############
-    mul  $t0, $a0, MAX_ENTITIES     # t0 = u * MAX
-    add  $t0, $t0, $a1              # t0 = u*MAX + v
-    sll  $t0, $t0, 2                # t0 *= 4 (word size)
-
-    la   $t1, adj_matrix            # base da matriz
-    add  $t1, $t1, $t0              # t1 = &adj[u][v]
-    sw   $a2, 0($t1)                # salva peso
-
-    ###### Cálculo do endereço [v][u] (simétrico) ######
-    mul  $t0, $a1, MAX_ENTITIES     # v*MAX
-    add  $t0, $t0, $a0              # v*MAX + u
-    sll  $t0, $t0, 2
-
-.include "readfile.asm"
 
 .eqv MAX_ENTITIES 50
 .eqv MAX_EDGES_PER_NODE 50
@@ -35,6 +7,7 @@ add_edge:
 .data
 
 .globl adj_matrix
+.align 2
 adj_matrix: .space 10000    # 50 * 50 * 4 (MAX_ENTITIES * MAX_ENTITIES * 4 BYTES)
 
 .text

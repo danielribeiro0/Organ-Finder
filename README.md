@@ -9,7 +9,7 @@ This project was inspired by the outstanding performance of the OPO in the north
 The system aims to support this process by automating the search and matching of organs between potential donors and hospitals or distribution centers.
 
 ## Features
-- Graph representation using adjacency lists in Assembly  
+- Graph representation using adjacency matrix in Assembly  
 - Storage of donors and distribution centers data  
 - Organ search algorithm for nearest available match  
 - Text-based user interface for interaction  

@@ -7,9 +7,11 @@
     
     # Buffers globais para dados parseados
     .globl num_entities
+    .align 2
     num_entities:   .word 0
     
     .globl ent_id
+    .align 2
     ent_id:         .space 200      # 50 entidades * 4 bytes
     
     .globl ent_type
@@ -25,18 +27,23 @@
     ent_organs:     .space 6400     # 50 entidades * 128 bytes
     
     .globl num_edges
+    .align 2
     num_edges:      .word 0
     
     .globl edge_u
+    .align 2
     edge_u:         .space 200      # 50 arestas * 4 bytes
     
     .globl edge_v
+    .align 2
     edge_v:         .space 200      # 50 arestas * 4 bytes
     
     .globl edge_w
+    .align 2
     edge_w:         .space 200      # 50 arestas * 4 bytes
     
     # Buffer de arquivo
+    .align 2
     buffer:         .space 8192     # Buffer de 8KB
     
 .text
