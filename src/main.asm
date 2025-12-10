@@ -9,6 +9,8 @@
 .include "graph.asm"
 .include "ui.asm"
 .include "search.asm"
+.include "add_record.asm"
+.include "writefile.asm"
 
 .text
 .globl main
@@ -30,12 +32,18 @@ main_loop:
     beq $s0, $t0, do_load_data
     
     li $t0, 2
-    beq $s0, $t0, do_visualize
+    beq $s0, $t0, do_visualize_db
     
     li $t0, 3
-    beq $s0, $t0, do_search
+    beq $s0, $t0, do_add_record
     
     li $t0, 4
+    beq $s0, $t0, do_visualize_graph
+    
+    li $t0, 5
+    beq $s0, $t0, do_search
+    
+    li $t0, 6
     beq $s0, $t0, do_exit
     
     # Opção Inválida
@@ -54,7 +62,17 @@ do_load_data:
     # Opcional: Imprimir mensagem de sucesso (poderia ser adicionado em ui.asm)
     j main_loop
 
-do_visualize:
+    j main_loop
+
+do_visualize_db:
+    jal visualize_database
+    j main_loop
+
+do_add_record:
+    jal add_new_record
+    j main_loop
+
+do_visualize_graph:
     jal visualize_graph
     j main_loop
 
