@@ -3,8 +3,6 @@
 
 # Inclui outros módulos
 # Nota: graph.asm inclui readfile.asm
-.text
-    j main
 
 .include "graph.asm"
 .include "ui.asm"

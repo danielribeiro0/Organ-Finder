@@ -1,6 +1,5 @@
 .include "readfile.asm"
 
-
 .eqv MAX_ENTITIES 50
 .eqv MAX_EDGES_PER_NODE 50
 
