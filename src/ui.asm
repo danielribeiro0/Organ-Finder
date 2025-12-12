@@ -4,7 +4,7 @@
 .data
     # Strings para UI
     header_str:     .asciiz "\n################################\n#      SISTEMA DE BUSCA OPO    #\n################################\n"
-    menu_str:       .asciiz "\n=== MENU PRINCIPAL ===\n1. Carregar Dados (do arquivo)\n2. Visualizar Grafo\n3. Buscar Orgao\n4. Sair\n\nDigite sua escolha: "
+    menu_str:       .asciiz "\n=== MENU PRINCIPAL ===\n1. Carregar Dados (do arquivo)\n2. Visualizar Banco\n3. Adicionar Registro\n4. Visualizar Grafo\n5. Buscar Orgao\n6. Sair\n\nDigite sua escolha: "
     invalid_opt:    .asciiz "\nOpcao invalida! Por favor tente novamente.\n"
     bye_str:        .asciiz "\nSaindo do sistema... Adeus!\n"
     
@@ -18,14 +18,24 @@
     
     # Strings para Busca (Placeholder)
     search_prompt:  .asciiz "\n[Recurso de Busca] Digite o Nome do Orgao: "
-    search_res_stub:.asciiz "\nFuncionalidade de busca ainda nao implementada.\n"
+
+    
+    # Strings para Visualizacao do Banco
+    db_header:      .asciiz "\n=== BANCO DE DADOS ===\n"
+    id_lbl:         .asciiz "ID: "
+    type_lbl:       .asciiz " | Tipo: "
+    name_lbl:       .asciiz " | Nome: "
+    city_lbl:       .asciiz " | Cidade: "
+    org_lbl:        .asciiz " | Orgaos: "
+
 
 .text
 .globl print_header
 .globl print_menu
 .globl get_user_choice
+.globl visualize_database
 .globl visualize_graph
-.globl print_search_stub
+
 .globl print_error_msg
 .globl print_exit_msg
 
@@ -104,11 +114,109 @@ print_exit_msg:
 # Função: print_search_stub
 # Descrição: Placeholder para funcionalidade de busca
 # -----------------------------------------------------------------------------
-print_search_stub:
+
+
+# -----------------------------------------------------------------------------
+# Função: visualize_database
+# Descrição: Lista todas as entidades cadastradas
+# -----------------------------------------------------------------------------
+visualize_database:
+    addi $sp, $sp, -8
+    sw   $ra, 0($sp)
+    sw   $s0, 4($sp)        # iterador i
+
     li $v0, 4
-    la $a0, search_res_stub
+    la $a0, db_header
     syscall
-    jr $ra
+
+    lw $t0, num_entities
+    blez $t0, vdb_end
+
+    li $s0, 0               # i = 0
+
+vdb_loop:
+    lw $t0, num_entities
+    bge $s0, $t0, vdb_done
+
+    # 1. Imprime ID: "ID: "
+    li $v0, 4
+    la $a0, id_lbl
+    syscall
+
+    # Get ID from ent_id[i]
+    la  $t1, ent_id
+    sll $t2, $s0, 2         # i * 4
+    add $t1, $t1, $t2
+    lw  $a0, 0($t1)
+    li  $v0, 1
+    syscall
+
+    # 2. Imprime Tipo: " | Tipo: "
+    li $v0, 4
+    la $a0, type_lbl
+    syscall
+
+    # Get Type from ent_type[i] string
+    la  $t1, ent_type
+    add $t1, $t1, $s0       # i * 1 (assumindo array de bytes/chars)
+    lb  $a0, 0($t1)         # Load byte instead of address
+    li  $v0, 11             # Syscall 11: print_char
+    syscall
+
+    # 3. Imprime Nome: " | Nome: "
+    li $v0, 4
+    la $a0, name_lbl
+    syscall
+
+    # Get Name from ent_name[i]
+    la  $t1, ent_name
+    sll $t2, $s0, 6         # i * 64
+    add $a0, $t1, $t2
+    li  $v0, 4
+    syscall
+
+    # 4. Imprime Cidade: " | Cidade: "
+    li $v0, 4
+    la $a0, city_lbl
+    syscall
+    
+    # Get City from ent_city[i]
+    la  $t1, ent_city
+    sll $t2, $s0, 6         # i * 64
+    add $a0, $t1, $t2
+    li  $v0, 4
+    syscall
+
+    # 5. Imprime Orgaos: " | Orgaos: "
+    li $v0, 4
+    la $a0, org_lbl
+    syscall
+
+    # Get Organs from ent_organs[i]
+    la  $t1, ent_organs
+    sll $t2, $s0, 7         # i * 128
+    add $a0, $t1, $t2
+    li  $v0, 4
+    syscall
+
+    # Nova linha
+    li $v0, 11
+    li $a0, 10
+    syscall
+
+    addi $s0, $s0, 1
+    j vdb_loop
+
+vdb_done:
+    lw   $ra, 0($sp)
+    lw   $s0, 4($sp)
+    addi $sp, $sp, 8
+    jr   $ra
+
+vdb_end:
+    lw   $ra, 0($sp)
+    addi $sp, $sp, 8
+    jr   $ra
 
 # -----------------------------------------------------------------------------
 # Função: visualize_graph

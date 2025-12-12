@@ -1,0 +1,283 @@
+\documentclass[a4paper, 12pt]{article}
+
+%Modelo baseados nos diponibilizados por Lazaro Silva (https://www.overleaf.com/latex/templates/modelo-de-relatorio/dnxhwsjdmpyb)
+
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{multicol,lipsum}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{url}
+\usepackage{float}
+\usepackage{amssymb}
+
+\begin{document}
+%\maketitle
+
+\begin{titlepage}
+	\begin{center}
+
+ 	\graphicspath{{imagens/}}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.1]{unifesp}
+		\label{fig:logo_unifesp}
+	\end{figure}
+
+		\normalsize{Universidade Federal de São Paulo}\\
+		\normalsize{Instituto de Ciência e Tecnologia}\\ 
+		\normalsize{Arquitetura e Organização de Computadores - Turma IB}\\ 
+		\vspace{15pt}
+        \vspace{95pt}
+        \textbf{\LARGE{Sistema de Apoio à Doação de Órgãos}}\\
+		\vspace{3,5cm}
+	\end{center}
+	
+	\begin{flushleft}
+		\begin{tabbing}
+			\textbf{Integrantes:}\\
+            Daniel Monteiro Ribeiro - 176231\\
+            Davi de Souza Santos - 176235\\
+            João Vitor Moreira Gomes - 176536\\
+            Thiago Sole Gomes Heleno - 176579\\
+			\textbf{Docente responsável:} Profa. Dra. Thaína A. A. Tosta\\
+	\end{tabbing}
+ \end{flushleft}
+	\vspace{1cm}
+	
+	\begin{center}
+		\vspace{\fill}
+			 São José dos Campos\\
+    		 2025/2
+			\end{center}
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % % % % % % % %FOLHA DE ROSTO % % % % % % % % % %
+
+\begin{titlepage}
+	\begin{center}
+
+ 	\graphicspath{{imagens/}}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.2]{unifesp}
+		\label{fig:logo_unifesp}
+	\end{figure}
+
+		\normalsize{Universidade Federal de São Paulo}\\
+		\normalsize{Instituto de Ciência e Tecnologia}\\ 
+		\normalsize{Arquitetura e Organização de Computadores - Turma IB}\\ 
+		\vspace{15pt}
+        \vspace{95pt}
+        \textbf{\LARGE{Sistema de Apoio à Doação de Órgãos}}\\
+		% \title{{\large{Título}}}
+		\vspace{3,5cm}
+	\end{center}
+\vspace{1,5cm}
+	
+	\begin{flushright}
+
+   \begin{list}{}{
+      \setlength{\leftmargin}{4.5cm}
+      \setlength{\rightmargin}{0cm}
+      \setlength{\labelwidth}{0pt}
+      \setlength{\labelsep}{\leftmargin}}
+
+      \item Primeiro relatório do projeto de Arquitetura e Organização de Computadores (Turma IB) da Universidade Federal de São Paulo para cumprimento dos requisitos de avaliação e aprovação na disciplina.
+
+   \end{list}
+\end{flushright}
+\vspace{1cm}
+\begin{center}
+		\vspace{\fill}
+		 São José dos Campos\\
+		 2025/2
+			\end{center}
+\end{titlepage}
+
+\newpage
+\pagenumbering{arabic}
+% % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{abstract}
+    A região noroeste paulista apresenta o maior índice de doação de órgãos do país, resultado diretamente ligado à atuação eficiente da Organização de Procura de Órgãos (OPO), que realiza a abordagem das famílias e coordena o processo de autorização de doações. Inspirado nesse cenário, o projeto propõe o desenvolvimento de um sistema em Assembly que simula o funcionamento de apoio da OPO, auxiliando na busca e seleção de órgãos disponíveis. O sistema utiliza uma estrutura de grafo para representar a relação entre centros de distribuição e possíveis doadores, permitindo identificar o centro mais próximo com o órgão solicitado. A lista de adjacência foi escolhida pela eficiência de memória e simplicidade de implementação em Assembly. Os dados serão carregados de forma estática e processados por um algoritmo de busca que verifica a disponibilidade do órgão, consultando doadores quando necessário. A interface será textual, exibindo de forma clara o resultado da solicitação — seja a disponibilidade, a busca em andamento ou a indisponibilidade do órgão.
+\end{abstract}
+
+\newpage
+\section{Contextualização}
+A doação de órgãos é essencial para salvar vidas, sendo um dos processos
+médicos mais eticamente desafiadores, porque envolve dilemas morais com-
+plexos que tocam diretamente o valor da vida, a autonomia do paciente e
+a sensibilidade das famílias. Segundo Silveira et al. (2009)[1], as princi-
+pais questões éticas surgem na abordagem à família do potencial doador, no
+respeito à vontade do falecido e na definição do momento da morte (morte
+encefálica). Esses fatores exigem equilíbrio entre princípios de autonomia, be-
+neficência e justiça — fundamentais na bioética — e as necessidades práticas
+do sistema de saúde.
+Além disso, ainda existem desafios logísticos: o Brasil possui o maior
+sistema público de transplantes do mundo, coordenado pelo Sistema Nacional
+de Transplantes (SNT)[2], responsável por administrar e regulamentar as
+etapas do processo de doação em todo o território nacional, com apoio das
+Organizações de Procura de Órgãos (OPOs) e das Centrais Estaduais de
+Transplantes.
+Apesar da boa estrutura implementada, o Brasil ainda tem como pro-
+blema o déficit de doadores perante uma alta demanda: a média nacional é
+de 20 doadores por milhão de habitantes e, segundo a ABTO (Associação
+Brasileira de Transporte de Órgãos), a meta nacional é de 30 doadores por
+milhão[3]. A baixa oferta de doadores é decorrente da desinformação da
+população, da escassez de treinamento entre profissionais de saúde e da com-
+plexidade ética envolvida na abordagem familiar[4].
+É preciso estimular o diálogo familiar, uma vez que a autorização para a
+doação depende exclusivamente da família do doador. O incentivo às famílias
+pelo consentimento a respeito da doação de órgãos é essencial, considerando
+que a comunicação e o preparo emocional são fatores decisivos para aumentar
+o número de doações efetivas[5]. Paralelamente, o SNT atua na integração
+tecnológica e logística entre hospitais, laboratórios e equipes médicas, otimi-
+zando o transporte e testando com eficiência a compatibilidade entre órgãos
+e receptores[2].
+No contexto nacional, o Noroeste Paulista se destaca como a região com
+o melhor índice de doação do país, com cerca de 75\% das famílias abordadas
+consentindo com a doação, conforme reportado pelo [3]. Tal coisa decorre
+da atuação eficiente das OPOs em conscientizar e sensibilizar a comunidade
+sobre o tema.
+Inspirando-se nos trabalhos ilustres dessas OPOs, o presente projeto visa
+utilizar recursos de programação em Assembly e o conhecimento dos alu-
+nos autores em matéria de grafos, algoritmos de caminho mínimo, banco de
+dados e construção de interfaces para propor um sistema logístico para a
+2
+distribuição de órgãos. Os grafos representarão os centros de distribuição de
+órgãos, e cada centro terá o seu próprio banco de dados de doadores e órgãos
+disponíveis. Através dessa interface, o usuário poderá cadastrar novos doadores a um centro de distribuição ou encontrar o centro de distribuição mais
+próximo de sua cidade segundo a sua necessidade.
+Mais do que uma implementação de códigos, o projeto tem como alvo
+reforçar a importância da integração entre tecnologia e solidariedade humana,
+demonstrando como sistemas computacionais podem auxiliar na gestão de
+dados e contribuir para a agilidade, eficiência e transparência do processo de
+doação de órgãos no Brasil.
+\section{Objetivos}
+
+Desenvolver um sistema em linguagem Assembly, voltado à organização das agências de transplantes de órgãos, que possibilite o cadastro e o gerenciamento das informações de doadores e hospitais, utilizando estruturas de grafos para otimizar o processo logístico e calcular as distâncias mínimas entre cada agente do ecossistema, contribuindo para tornar o processo de doação e transplante mais ágil e eficiente.
+
+\vspace{0.5em}
+
+Os objetivos específicos incluem:
+\begin{itemize}
+    \item A1. Implementar a estrutura de grafos em Assembly;
+    \item A2. Utilizar a estrutra para armazenar os dados iniciais do programa;
+    \item A3. Implementar o algoritmo de busca em grafos em Assembly;'
+    \item A4. Implementar um questionário para busca de órgãos;
+    \item A5. Programar a busca do órgão utilizando a estrutura de grafos;
+    \item A6. Programar uma interface visual para utilização do programa.
+    
+\end{itemize}
+
+\section{Metodologia}
+3.1 O sistema a ser modelado e implementado servirá como um auxílio para os centros de distribuição de órgãos. Seu papel é, de forma eficiente, realizar a busca automática de órgãos e retornar ao receptor a disponibilidade ou não do órgão requisitado.
+
+A aplicação será estruturada em Assembly, utilizando uma representação em grafo para modelar a relação entre possíveis doadores e centros de distribuição. Cada nó do grafo representará um centro de distribuição ou doador, enquanto as arestas indicarão conexões entre eles, com base em critérios de proximidade.
+
+A escolha da lista de adjacência como forma de armazenamento se justifica pela economia de memória e facilidade de manipulação em Assembly. Os dados serão carregados de forma estática, simulando um pequeno conjunto de doadores e centros de distribuição com seus respectivos órgãos disponíveis.
+
+O algoritmo principal será responsável por receber a solicitação de órgão feita pelo receptor, localizar o centro de distribuição mais próximo e verificar a disponibilidade do órgão. Caso o centro não possua o órgão solicitado, o sistema buscará entre os doadores um possível compatível, retornando a disponibilidade ou, no pior caso, informando a indisponibilidade.
+
+A interface será textual, executada no terminal, exibindo as opções e os resultados de forma clara e organizada.
+
+O fluxo geral de execução do sistema é representado no diagrama UML a seguir [Figura~\ref{fig:diagrama-sequencia}], que descreve as interações entre o receptor, o sistema, os centros de distribuição e os doadores.
+
+\graphicspath{{imagens/}}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{diagrama-sequencia.png}
+    \caption{Diagrama de sequência representando o fluxo de execução do sistema.}
+    \label{fig:diagrama-sequencia}
+\end{figure}
+\vspace{2em}
+
+
+\vspace{1em}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{452421147d8dd8aa98e3c8bbe0c50ded30fec297.png}
+    \caption{Respresentação de uma lista de adjacência}
+    \label{fig:placeholder}
+\end{figure}
+
+3.2
+O trecho acima exemplifica a estruturação do grafo e a rotina de busca em Assembly MIPS.
+A representação dos centros de distribuição e doadores foi feita por meio de uma lista de adjacência textual, que define as conexões possíveis entre os agentes.
+O sistema solicita ao usuário o nome de um órgão e, por meio da subrotina comparastrings, percorre a lista de órgãos disponíveis.
+Caso o órgão seja encontrado, o sistema informa o centro correspondente; caso contrário, realiza uma busca estendida (na versão completa do projeto) entre os doadores conectados
+
+
+\vspace{3em}
+
+3.3
+Para tornar o sistema mais flexível e próximo de uma aplicação real, serão utilizados \textbf{arquivos externos} para representar os dados de entrada e saída.
+
+O \textbf{arquivo de entrada} contém as informações que alimentam o sistema, como a estrutura do grafo e a lista de órgãos disponíveis.
+
+ O formato textual foi escolhido por sua simplicidade e compatibilidade com diferentes montadores e simuladores.
+\vspace{1em}
+ 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imagens/entradasaida.png}
+    \caption{Exemplo de código de entrada e saída para arquivos}
+    \label{fig:placeholder}
+\end{figure}
+
+ O código acima em MIPS Assembly demonstra operações básicas de manipulação de arquivos através de syscalls do sistema operacional. O programa começa abrindo o arquivo "saida.txt" em modo de escrita utilizando a syscall 13, salvando o descritor do arquivo no registrador s6. Em seguida, escreve a string "Exemplo de escrita em arquivo MIPS." no arquivo através da syscall 15, especificando o tamanho exato de 33 caracteres a serem escritos. Após completar a escrita, o arquivo é fechado com a syscall 16.
+Na segunda parte do programa, o mesmo arquivo "saida.txt" é reaberto, mas desta vez em modo de leitura, e seu descritor é armazenado em registrador s7. O conteúdo do arquivo é então lido para um buffer de memória com capacidade de 256 bytes utilizando a syscall 14. Após a leitura, o conteúdo armazenado no buffer é exibido no console através da syscall 4, que imprime strings. Por fim, o arquivo de leitura é fechado e o programa é encerrado com a syscall 10. Este exemplo ilustra o ciclo completo de operações de entrada e saída com arquivos em Assembly MIPS, incluindo abertura, escrita, leitura, fechamento e exibição de dados.
+
+
+
+
+
+\section{Cronograma de execução}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|llllll|}
+\hline
+                                     &                                        & \multicolumn{6}{c|}{\textbf{Semanas}}                                                                                                                                                                                                                                    \\ \cline{3-8} 
+\multirow{-2}{*}{\textbf{Atividade}} & \multirow{-2}{*}{\textbf{Responsável}} & \multicolumn{1}{l|}{\textbf{1}}               & \multicolumn{1}{l|}{\textbf{2}}               & \multicolumn{1}{l|}{\textbf{3}}               & \multicolumn{1}{l|}{\textbf{4}}               & \multicolumn{1}{l|}{\textbf{5}}               & \textbf{6}               \\ \hline
+A1                                   & Daniel                                 & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                          \\ \hline
+A2                                   & Davi                                   & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{}                         &                          \\ \hline
+A3                                   & João, Davi                             & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{}                         &                          \\ \hline
+A4                                   & Thiago, Daniel                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} &                          \\ \hline
+A5                                   & João                                   & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \multicolumn{1}{l|}{\cellcolor[HTML]{9B9B9B}} & \cellcolor[HTML]{9B9B9B} \\ \hline
+A6                                   & Thiago                                 & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0} \\ \hline
+\end{tabular}
+\end{table}
+
+% (\url{https://www.tablesgenerator.com/}).
+
+\bibliographystyle{ieeetr} 
+\bibliography{bibliography}
+\cite{abto2024}
+\cite{cormen2012}
+ \cite{dijkstra1959}
+\cite{landc}
+\cite{mars2024}
+\cite{mips_file_io_tutorial}
+\cite{mips_syscall_reference}
+\cite{patterson2017} 
+\cite{tem2025}
+\cite{sedgewick2011}
+\cite{silveira2009aspectos}
+\cite{snt2025}
+\cite{pessalacia2011bioetica}
+\cite{de2010analise}
+\cite{rezende2015doaccao}
+\cite{ms2025doacaoOrgaos}
+
+
+
+% \newpage
+% \addcontentsline{toc}{section}{Anexo}
+% \section*{Anexo}
+\end{document}

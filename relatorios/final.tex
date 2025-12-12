@@ -1,0 +1,204 @@
+\documentclass[a4paper, 12pt]{article}
+
+%Modelo baseados nos diponibilizados por Lazaro Silva (https://www.overleaf.com/latex/templates/modelo-de-relatorio/dnxhwsjdmpyb)
+
+\usepackage[portuges]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{multicol,lipsum}
+\usepackage{multirow}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{url}
+
+\begin{document}
+%\maketitle
+
+\begin{titlepage}
+	\begin{center}
+
+ 	\graphicspath{{imagens/}}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.2]{unifesp}
+		\label{fig:logo_unifesp}
+	\end{figure}
+
+		\normalsize{Universidade Federal de São Paulo}\\
+		\normalsize{Instituto de Ciência e Tecnologia}\\ 
+		\normalsize{Arquitetura e Organização de Computadores - Turma IB}\\ 
+		\vspace{15pt}
+        \vspace{95pt}
+        \textbf{\LARGE{Sistema de apoio à doação de órgãos implementado em Assembly}}\\
+		\vspace{3,5cm}
+	\end{center}
+	
+	\begin{flushleft}
+		\begin{tabbing}
+			\textbf{Integrantes:} \\
+            João Vítor Moreira Gomes - RA 176536 \\
+            David Souza Santos - RA 176235 \\
+            Daniel Monteiro Ribeiro - RA 176231 \\
+            Thiago Sole Gomes Heleno - RA 176579 \\
+			\textbf{Docente responsável:} Profa. Dra. Thaína A. A. Tosta\\
+	\end{tabbing}
+ \end{flushleft}
+	\vspace{1cm}
+	
+	\begin{center}
+		\vspace{\fill}
+			 São José dos Campos\\
+    		 2025/2
+			\end{center}
+\end{titlepage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% % % % % % % % %FOLHA DE ROSTO % % % % % % % % % %
+
+\begin{titlepage}
+	\begin{center}
+
+ 	\graphicspath{{imagens/}}
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.2]{unifesp}
+		\label{fig:logo_unifesp}
+	\end{figure}
+
+		\normalsize{Universidade Federal de São Paulo}\\
+		\normalsize{Instituto de Ciência e Tecnologia}\\ 
+		\normalsize{Arquitetura e Organização de Computadores - Turma IB}\\ 
+		\vspace{15pt}
+        \vspace{95pt}
+        \textbf{\LARGE{Sistema de apoio à doação de órgãos implementado em Assembly}}\\
+		%\title{{\large{Título}}}
+		\vspace{3,5cm}
+	\end{center}
+\vspace{1,5cm}
+	
+	\begin{flushright}
+
+   \begin{list}{}{
+      \setlength{\leftmargin}{4.5cm}
+      \setlength{\rightmargin}{0cm}
+      \setlength{\labelwidth}{0pt}
+      \setlength{\labelsep}{\leftmargin}}
+
+      \item Segundo relatório do projeto de Arquitetura e Organização de Computadores (Turma IB) da Universidade Federal de São Paulo para cumprimento dos requisitos de avaliação e aprovação na disciplina.
+
+   \end{list}
+\end{flushright}
+\vspace{1cm}
+\begin{center}
+		\vspace{\fill}
+		 São José dos Campos\\
+		 2025/2
+			\end{center}
+\end{titlepage}
+\newpage
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+%\newpage
+%\tableofcontents
+%\thispagestyle{empty}
+
+\newpage
+\pagenumbering{arabic}
+% % % % % % % % % % % % % % % % % % % % % % % % % % %
+\begin{abstract}
+    Resumo atualizado conforme sugestões de entregas anteriores.
+\end{abstract}
+
+\newpage
+\section{Introdução}
+Esta seção corresponde à ``Contextualização'' das entregas anteriores. É preciso que todas as informações citadas nesta seção tenham referências, com citação por \cite{landc} e edição do arquivo .bib deste projeto latex. A escrita a ser incluída aqui deve conter a aplicação do sistema proposto (possivelmente em múltiplos parárgafos), com o tema da notícia, e ter um parágrafo final descrevendo brevemente o que o sistema propõe, baseado nas informações anteriormente citadas.
+
+\subsection{Objetivos}
+
+O objetivo geral deste projeto é desenvolver um sistema que ofereça apoio às equipes das organizações responsáveis pela mediação entre doadores, hospitais e receptores. O sistema visa automatizar etapas do processo de identificação e comunicação sobre a disponibilidade de órgãos, reduzindo esforços manuais e tornando o fluxo mais rápido e eficiente.
+
+Os objetivos específicos do trabalho são:
+
+\begin{itemize}
+    \item Permitir o cadastro de potenciais doadores, registrando órgãos disponíveis no sistema;
+    \item Facilitar a consulta de disponibilidade de órgãos por parte de receptores e equipes médicas;
+    \item Oferecer uma visão clara da rede de hospitais e centros de distribuição, permitindo localizar rapidamente onde cada órgão está disponível;
+    \item Reduzir o tempo de resposta no processo de busca e confirmação de órgãos, automatizando etapas que antes eram manuais;
+    \item Apoiar a tomada de decisões das equipes responsáveis, fornecendo informações organizadas e atualizadas em um único sistema.
+\end{itemize}
+
+
+\section{Materiais e métodos}
+Esta seção deve descrever os dados usados na implementação (materiais) e as funções e implementações realizadas (métodos). Para isso, é possível criar subseções como (fiquem livres para editá-las de acordo com o trabalho de cada grupo):
+
+\subsection{Bases de dados}
+Descrever as bases de dados usadas para compor o sistema. Por exemplo, caso a proposta contenha comparações de dados com informações diversas obtidas por referência confiáveis, citar essas informações aqui. Caso contrário, é possível remover essa subseção.
+
+\subsection{Implementação}
+Listar as operações já implementadas para o sistema. É importante relacionar as implementações com os objetivos listados, para que o trabalho faça sentido. Apresentar apenas referência ao nomes das funções usadas para essas implementações, não sendo necessário adicionar o código completo.
+
+\subsection{Estrutura de grafo}
+
+Para representar as relações entre possíveis doadores e centros de distribuição de órgãos, o sistema utiliza uma estrutura de grafo ponderado e não direcionado. A escolha por um grafo se justifica pela necessidade de realizar buscas eficientes baseadas em distância, critério fundamental para localizar rapidamente onde determinado órgão está disponível e para apoiar a tomada de decisões envolvendo a escolha do centro de distribuição mais próximo ou do doador mais acessível. Como cada aresta possui um peso correspondente à distância em quilômetros, essa modelagem permite empregar algoritmos de busca adequados para caminhos mínimos, automatizando etapas que antes dependeriam de consulta manual e reduzindo significativamente o tempo de resposta na identificação e confirmação de disponibilidade de órgãos. Assim, o uso de grafos contribui diretamente para tornar o processo mais ágil, organizado e eficiente, alinhando-se aos propósitos centrais do sistema.
+
+O grafo é composto por dois tipos distintos de vértices: centros de distribuição e possíveis doadores. Ambos os tipos armazenam informações estruturadas, incluindo:
+\begin{itemize}
+    \item \textbf{ID}: número inteiro utilizado como índice do vértice no grafo;
+    \item \textbf{Tipo};
+    \item \textbf{Nome};
+    \item \textbf{Cidade};
+    \item \textbf{Lista de órgãos disponíveis}.
+\end{itemize}
+
+Os centros de distribuição representam hospitais ou unidades especializadas responsáveis pelo armazenamento e gestão dos órgãos disponíveis. Já os vértices do tipo doador representam indivíduos registrados no sistema, que podem possuir uma lista de órgãos doados (possivelmente vazia).
+
+As arestas são estabelecidas exclusivamente entre doadores e centros de distribuição e entre cada centro de distribuição, representando a distância física entre esses pontos. Não são criadas conexões entre dois doadores, uma vez que tais relações não contribuem para os objetivos do sistema. Essa modelagem garante que o grafo reflita de maneira precisa o fluxo relevante da aplicação: a busca por um centro adequado a partir de um doador registrado ou a identificação de doadores próximos a um centro requisitante.
+
+\subsubsection{Implementação do grafo}
+
+A representação escolhida para o grafo foi a \textbf{matriz de adjacência}. Embora não seja a estrutura mais eficiente em termos de ocupação de memória — especialmente por resultar em uma matriz esparsa — ela foi adotada por ser a alternativa mais simples de implementar no contexto da linguagem Assembly utilizada. Uma implementação por lista de adjacência exigiria também a construção de listas encadeadas, o que aumentaria significativamente a complexidade estrutural e tornaria o desenvolvimento inviável para os prazos e ferramentas do projeto.
+
+Na matriz de adjacência, cada posição $(u, v)$ armazena diretamente o peso da aresta entre os vértices $u$ e $v$. Como o grafo é não direcionado, a matriz é simétrica. Para pares de vértices sem conexão, atribui-se o valor \textbf{0}. Esse valor não gera ambiguidades, pois não existem distâncias reais iguais a zero entre os nós do sistema.
+
+A implementação do grafo em Assembly utiliza duas funções principais:
+\begin{itemize}
+    \item \textbf{init\_graph}: responsável por inicializar toda a matriz de adjacência com zeros e, em seguida, carregar no grafo todas as arestas lidas do arquivo de entrada;
+    \item \textbf{add\_edge}: recebe dois vértices e um peso, inserindo a aresta correspondente na matriz de adjacência (em ambas as posições $(u,v)$ e $(v,u)$).
+\end{itemize}
+
+Como o grafo não é dinâmico, seu conteúdo não se altera após a inicialização. Ele é definido integralmente com base no arquivo de texto fornecido pelo usuário, seguindo o padrão descrito na subseção de entrada de dados. O grafo somente mudará caso o arquivo seja modificado ou substituído. Essa abordagem garante simplicidade e previsibilidade na manipulação das estruturas durante as operações de busca.
+
+
+\section{Resultados}
+Listar testes que podem ser executados e estão funcionais no código enviado. Descrever entrada, operação e saída de cada um deles. Sugestão de adicionar prints das telas para verificação na apresentação (isso não é recomendado em outros trabalhos, como TCC, mas no nosso caso é uma boa ferramenta para facilitar a compreensão do sistema implementado).
+
+\section{Planejamento e cronograma de execução}
+Adicionar o cronograma final que foi seguido, identificando quem fez determinada parte. Não é necessário identificar quando foi feito, a não ser que queiram pela tabela abaixo. Um opção é listar nomes vs atividades pelo comando \begin{itemize}     \item      \end{itemize}.
+
+\begin{table}[!htpb]
+\centering
+\begin{tabular}{|l|l|llll|}
+\hline
+\multicolumn{1}{|c|}{}                                     & \multicolumn{1}{c|}{}                                       & \multicolumn{4}{c|}{\textbf{Meses}}                                                                                                                                                \\ \cline{3-6} 
+\multicolumn{1}{|c|}{\multirow{-2}{*}{\textbf{Atividade}}} & \multicolumn{1}{c|}{\multirow{-2}{*}{\textbf{Responsável}}} & \multicolumn{1}{c|}{\textbf{Nov.}}            & \multicolumn{1}{c|}{\textbf{Dez.}}            & \multicolumn{1}{c|}{\textbf{Jan.}}            & \multicolumn{1}{c|}{\textbf{Fev.}} \\ \hline
+1                                                          & Integrante 1                                                & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         &                                    \\ \hline
+2                                                          & Integrante 2                                                & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} &                                    \\ \hline
+3                                                          & Integrante 3                                                & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} &                                    \\ \hline
+4                                                          & Integrante 1                                                & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} &                                    \\ \hline
+5                                                          & Integrante 2                                                & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{\cellcolor[HTML]{C0C0C0}} & \cellcolor[HTML]{C0C0C0}           \\ \hline
+6                                                          & Integrante 3                                                & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \multicolumn{1}{l|}{}                         & \cellcolor[HTML]{C0C0C0}           \\ \hline
+\end{tabular}
+\end{table}
+
+Além de meses, podem ser considerados períodos de tempo diversos, como períodos quinzenais. Ferramentas online podem ser usadas para isso (\url{https://www.tablesgenerator.com/}).
+
+\section{Conclusão}
+Escrever um parágrafo descrevendo o contexto do problema, e as funcionalidades do sistema implementado. Adicionar parágrafos adicionais com as limitações do sistema e trabalhos futuros (o que mais poderia ser feito caso tivéssemos tempo hábil para isso?).
+
+\bibliographystyle{ieeetr} 
+\bibliography{bibliography}
+ 
+%\newpage
+%\addcontentsline{toc}{section}{Anexo}
+%\section*{Anexo}
+\end{document}

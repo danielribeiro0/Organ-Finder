@@ -2,7 +2,7 @@
 # Módulo para leitura e parsing do arquivo de dados de entrada
 
 .data
-    filename:       .asciiz "dados.txt"
+    filename:       .asciiz "../data/dados.txt"
     error_msg:      .asciiz "Erro ao abrir arquivo!\n"
     
     # Buffers globais para dados parseados
