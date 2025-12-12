@@ -1,6 +1,9 @@
 # main.asm
 # Ponto de entrada para o Sistema de Busca OPO
 
+.text
+    j main
+
 # Inclui outros módulos
 # Nota: graph.asm inclui readfile.asm
 
